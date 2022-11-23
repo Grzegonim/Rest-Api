@@ -30,8 +30,17 @@ router.route('/seats/:id').delete((req, res) => {
 });
 
 router.route('/seats/:id').put((req, res) => {
-  db.seats.find(data => (data.id.toString() === req.params.id.toString()) && (data.day = req.body.day, data.seat = req.body.seat, data.client = req.body.client, data.email = req.body.email ));
-  res.json({ message: 'OK' });
+  db.seat = db.seats.map(data => {
+    if(data.id.toString() === req.params.id.toString()){
+      return (
+        data.day = req.body.day, 
+        data.seat = req.body.seat, 
+        data.client = req.body.client, 
+        data.email = req.body.email,
+        res.json({ message: 'OK' })
+      )
+    };
+  });
 });
 
 router.route('/seats/:id').get((req, res) => {

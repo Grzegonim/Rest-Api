@@ -24,8 +24,17 @@ router.route('/concerts/:id').delete((req, res) => {
 });+
 
 router.route('/concerts/:id').put((req, res) => {
-  db.concerts.find(data => (data.id.toString() === req.params.id.toString()) && (data.performer = req.body.performer, data.genre = req.body.genre, data.price = req.body.price, data.day = req.body.day ));
-  res.json({ message: 'OK' });
+  db.concert = db.concerts.map(data => {
+    if(data.id.toString() === req.params.id.toString()){
+      return (
+        data.performer = req.body.performer, 
+        data.genre = req.body.genre, 
+        data.price = req.body.price, 
+        data.day = req.body.day,
+        res.json({ message: 'OK' })
+      )
+    };
+  });
 });
 
 router.route('/concerts/:id').get((req, res) => {

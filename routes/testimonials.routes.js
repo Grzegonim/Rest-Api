@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../db.js');
 const shortid = require('shortid');
+const e = require('express');
 const router = express.Router();
 
 router.route('/testimonials').get((req, res) => {
@@ -23,8 +24,15 @@ router.route('/testimonials/:id').delete((req, res) => {
 });
 
 router.route('/testimonials/:id').put((req, res) => {
-  db.testimonials.find(data => (data.id.toString() === req.params.id.toString()) && (data.author = req.body.author, data.text = req.body.text));
-  res.json({ message: 'OK' });
+  db.testimonial = db.testimonials.map(data => {
+    if(data.id.toString() === req.params.id.toString()){
+      return (
+        data.author = req.body.author,
+        data.text = req.body.text,
+        res.json({ message: 'OK' })
+      );
+    };
+  });
 });
 
 router.route('/testimonials/:id').get((req, res) => {
