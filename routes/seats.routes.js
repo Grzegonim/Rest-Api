@@ -15,6 +15,7 @@ router.route('/seats/random').get((req, res) => {
 router.route('/seats').post((req, res) => {
   const orderSeat = () => {
     db.seats.push({ email: req.body.email, seat: req.body.seat, client: req.body.client, day: req.body.day, id: shortid() });
+    req.io.emit('seatsUpdated', db.seats);
     res.json({ message: 'OK' });
   };
   const takenSeat = () => {
