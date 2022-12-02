@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const e = require('express');
 const ConcertController = require('../controllers/concerts.controller');
 
 router.get('/concerts', ConcertController.getAll);
